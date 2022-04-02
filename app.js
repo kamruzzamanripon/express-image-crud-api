@@ -10,7 +10,7 @@ const multer = require("multer");
 app.use(bodyParser.json());
 
 
-
+//connect mongoDB
 const URI  = "mongodb://localhost:27017/User_Profile";
 mongoose.connect(URI,
     err => {

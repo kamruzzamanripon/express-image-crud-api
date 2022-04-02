@@ -14,7 +14,6 @@ module.exports = class UserController {
     if (req.file) var imgUrl = `storage/images/${req.file.filename}`;
     payload.avater = imgUrl;
 
-    //return console.log(payload)
     try {
       const userCreate = await new User(payload).save();
       return res.status(200).json({
