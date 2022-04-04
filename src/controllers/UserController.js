@@ -107,18 +107,18 @@ module.exports = class UserController {
     //return console.log(id)
     try{
      
-        //Check user have photo/image. if had then first delete local file then database
-        const userInfo = await User.findById(id);
-        const userPhotoInfo = userInfo.avater;
-        if(userPhotoInfo){
-          fs.unlinkSync(DIR + userPhotoInfo);
+        const userDeleteinfo = await User.findOneAndDelete({_id: id});
+        const {avater} = userDeleteinfo
+        
+        if(avater){
+          fs.unlinkSync(DIR + avater);
         }
 
-        const userDelete = await User.deleteOne({_id: id});
+        //const userDelete = await User.deleteOne({_id: id});
         return res.status(200).json({
           code: 200,
           message: "User Delete Successfully",
-          data: userDelete,
+          data: userDeleteinfo,
         });
     }catch(error){
       res.status(501).json({
