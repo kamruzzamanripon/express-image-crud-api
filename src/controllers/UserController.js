@@ -39,6 +39,8 @@ module.exports = class UserController {
       const singleUserInfo = await User.findById(id);
       const {name, email, phone, avater} =singleUserInfo;
       var getImageName = avater.match(/\/([^\/?#]+)[^\/]*$/);
+
+      //return console.log(getImageName);
       
       const singleuUserData ={
         name,
@@ -50,6 +52,30 @@ module.exports = class UserController {
         code: 200,
         message: "User Information",
         data: singleuUserData,
+      });
+      //return console.log(singleUserInfo)
+    }
+    catch(error){
+      res.status(501).json({
+        code: 501,
+        message: error.message,
+        error: true,
+      });
+    }
+  }
+
+
+  //All User information
+  static allUser = async(req, res)=>{
+    try{
+      const allUserInfo = await User.find();
+      
+
+      //return console.log(singleUserInfo);
+      return res.status(200).json({
+        code: 200,
+        message: "User Information",
+        data: allUserInfo,
       });
       //return console.log(singleUserInfo)
     }
